@@ -1,3 +1,27 @@
+## Notes for XiangShan Users
+
+First, we have changed the `test_done` function to a nemu_trap instruction.
+With the DiffTest environment, you are not required to check anything
+before or after the simulation. Therefore, we just exit.
+
+Second, riscv-dv seems to have a bad Python generator which runs for >10 minutes to
+generate even 10k instructions. Don't know why yet. Just don't use Python generator.
+
+Therefore, the following steps only work if you have VCS installed.
+
+Usage:
+
+- generate tests with `python3 run.py --steps gen --target rv64gc`
+
+This command should be run on a machine with VCS installed.
+
+- compile the tests with `python3 run.py --steps gcc_compile --target rv64gc`
+
+This command should be run on a machine with RISC-V toolchains installed.
+It creates binary image files that can be directly used as simulation inputs.
+
+Third, the RISC-V vector extension seems to be supported, but I've not tried.
+
 ## Overview
 
 RISCV-DV is a SV/UVM based open-source instruction generator for RISC-V
