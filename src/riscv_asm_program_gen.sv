@@ -703,6 +703,10 @@ class riscv_asm_program_gen extends uvm_object;
   virtual function void gen_test_done();
     string str = format_string("test_done:", LABEL_STR_LEN);
     instr_stream.push_back(str);
+    // this is how difftest quits the simulation
+    instr_stream.push_back({indent, "li a0, 0"});
+    instr_stream.push_back({indent, ".word   0x0005006b"});
+    // this is the original test_done in riscv-dv
     instr_stream.push_back({indent, "li gp, 1"});
     if (cfg.bare_program_mode) begin
       instr_stream.push_back({indent, "j write_tohost"});
